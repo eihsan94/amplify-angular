@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "ng-conf-present-dev-20190806221102-authRole",
+            "UnauthRoleArn": "arn:aws:iam::626696453961:role/ng-conf-present-dev-20190806221102-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::626696453961:role/ng-conf-present-dev-20190806221102-authRole",
+            "Region": "ap-northeast-1",
+            "DeploymentBucketName": "ng-conf-present-dev-20190806221102-deployment",
+            "UnauthRoleName": "ng-conf-present-dev-20190806221102-unauthRole",
+            "StackName": "ng-conf-present-dev-20190806221102",
+            "StackId": "arn:aws:cloudformation:ap-northeast-1:626696453961:stack/ng-conf-present-dev-20190806221102/a435ad70-b84b-11e9-8ca4-06fcc76a2472"
+        },
+        "categories": {
+            "auth": {
+                "ngconfpresenta7093158": {}
+            }
+        }
+    }
+}

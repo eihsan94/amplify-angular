@@ -1,0 +1,5 @@
+type Tweet @model {
+  id: ID!
+  contents: String!
+  userID: String
+}

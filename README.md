@@ -1,27 +1,52 @@
-# NgConfPresent
+# User check
+https://ap-northeast-1.console.aws.amazon.com/cognito/users/?region=ap-northeast-1#/pool/ap-northeast-1_l0fS4Hphf/details?_k=sm6q9i
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.0.
 
-## Development server
+# dynamo db
+https://ap-northeast-1.console.aws.amazon.com/dynamodb/home?region=ap-northeast-1#tables:selected=Tweet-l6ltjupogbc45m5ohrcpl4hblm-dev;tab=items
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# LoanApiDev check(graphql)
+https://ap-northeast-1.console.aws.amazon.com/appsync/home?region=ap-northeast-1#/apis
 
-## Code scaffolding
+```
+# create new tweet
+mutation createTweet {
+  createTweet(input: {
+    contents: "疲れた"
+    userID: "1"
+  }) {
+    id userID contents
+  }
+}
+# update
+mutation updateTweet {
+	updateTweet(input: {
+    id: "9c8d34c3-3630-4564-bc31-4cd011b3c8ac"
+    contents: "元気になった"
+  }) {
+      id
+      contents
+      }
+}
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# delete
+mutation deleteTweet {
+	deleteTweet(input: {
+    id: "e8c5d585-a5ee-4fcd-8f79-544e1cd1acef"
+  }) {
+      id
+      contents
+      }
+}
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+# get
+query listTweets {
+  listTweets {
+    items {
+      id
+      contents
+      userID
+    }
+  }
+}
+```

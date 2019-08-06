@@ -1,0 +1,112 @@
+type Tweet {
+  id: ID!
+  contents: String!
+  userID: String
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelTweetConnection {
+  items: [Tweet]
+  nextToken: String
+}
+
+input ModelStringFilterInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+}
+
+input ModelIDFilterInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+}
+
+input ModelIntFilterInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  contains: Int
+  notContains: Int
+  between: [Int]
+}
+
+input ModelFloatFilterInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  contains: Float
+  notContains: Float
+  between: [Float]
+}
+
+input ModelBooleanFilterInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelTweetFilterInput {
+  id: ModelIDFilterInput
+  contents: ModelStringFilterInput
+  userID: ModelStringFilterInput
+  and: [ModelTweetFilterInput]
+  or: [ModelTweetFilterInput]
+  not: ModelTweetFilterInput
+}
+
+type Query {
+  getTweet(id: ID!): Tweet
+  listTweets(filter: ModelTweetFilterInput, limit: Int, nextToken: String): ModelTweetConnection
+}
+
+input CreateTweetInput {
+  id: ID
+  contents: String!
+  userID: String
+}
+
+input UpdateTweetInput {
+  id: ID!
+  contents: String
+  userID: String
+}
+
+input DeleteTweetInput {
+  id: ID
+}
+
+type Mutation {
+  createTweet(input: CreateTweetInput!): Tweet
+  updateTweet(input: UpdateTweetInput!): Tweet
+  deleteTweet(input: DeleteTweetInput!): Tweet
+}
+
+type Subscription {
+  onCreateTweet: Tweet @aws_subscribe(mutations: ["createTweet"])
+  onUpdateTweet: Tweet @aws_subscribe(mutations: ["updateTweet"])
+  onDeleteTweet: Tweet @aws_subscribe(mutations: ["deleteTweet"])
+}

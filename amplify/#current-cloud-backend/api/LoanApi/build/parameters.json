@@ -1,0 +1,6 @@
+{
+    "AppSyncApiName": "LoanApi",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "S3DeploymentBucket": "ng-conf-present-dev-20190806221102-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/30fddc04615f56384ab7b3b9d2a37aafb412046b"
+}

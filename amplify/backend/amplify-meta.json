@@ -1,0 +1,54 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "ng-conf-present-dev-20190806221102-authRole",
+			"UnauthRoleArn": "arn:aws:iam::626696453961:role/ng-conf-present-dev-20190806221102-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::626696453961:role/ng-conf-present-dev-20190806221102-authRole",
+			"Region": "ap-northeast-1",
+			"DeploymentBucketName": "ng-conf-present-dev-20190806221102-deployment",
+			"UnauthRoleName": "ng-conf-present-dev-20190806221102-unauthRole",
+			"StackName": "ng-conf-present-dev-20190806221102",
+			"StackId": "arn:aws:cloudformation:ap-northeast-1:626696453961:stack/ng-conf-present-dev-20190806221102/a435ad70-b84b-11e9-8ca4-06fcc76a2472"
+		}
+	},
+	"auth": {
+		"ngconfpresenta7093158": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/ng-conf-present-dev-20190806221102-deployment/amplify-cfn-templates/auth/ngconfpresenta7093158-cloudformation-template.yml",
+				"logicalId": "authngconfpresenta7093158"
+			},
+			"lastPushTimeStamp": "2019-08-06T14:05:53.778Z",
+			"output": {
+				"AppClientSecret": "1d9q2e7ki01ap56530udg58kqn401kf2lntsaoekvqhkpm2d3h1p",
+				"UserPoolId": "ap-northeast-1_l0fS4Hphf",
+				"AppClientIDWeb": "3nglqh6gcptlsv2mnqob3f9dm1",
+				"AppClientID": "43cb14oran8n5cg0ib5fd67dbd",
+				"IdentityPoolId": "ap-northeast-1:3bb3df3f-cca5-49f8-b1e3-aa1ef926350b",
+				"IdentityPoolName": "ngconfpresenta7093158_identitypool_a7093158__dev",
+				"UserPoolName": "ngconfpresenta7093158_userpool_a7093158"
+			},
+			"lastPushDirHash": "uEHLBWnwK0UNCUIlf1Rv5Hx2r8Q="
+		}
+	},
+	"api": {
+		"LoanApi": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"securityType": "API_KEY",
+				"GraphQLAPIIdOutput": "l6ltjupogbc45m5ohrcpl4hblm",
+				"GraphQLAPIEndpointOutput": "https://pgaupoerbvbjfaphg23rkev3qe.appsync-api.ap-northeast-1.amazonaws.com/graphql",
+				"GraphQLAPIKeyOutput": "da2-yacibcz3b5ei3c3j7v3xly45vy"
+			},
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/ng-conf-present-dev-20190806221102-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"logicalId": "apiLoanApi"
+			},
+			"lastPushTimeStamp": "2019-08-06T14:05:54.602Z",
+			"lastPushDirHash": "fWBOsWQGHE8t9OomAnlt4Sbma+M="
+		}
+	}
+}

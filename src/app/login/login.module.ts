@@ -1,0 +1,18 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { LoginComponent } from './login.component';
+import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+
+
+
+@NgModule({
+  declarations: [LoginComponent],
+  imports: [
+    CommonModule,
+    AmplifyAngularModule,
+  ],
+  providers: [
+    AmplifyService,
+  ],
+})
+export class LoginModule { }
