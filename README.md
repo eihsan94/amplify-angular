@@ -50,3 +50,5 @@ query listTweets {
   }
 }
 ```
+# DEPLOY
+- enable git ignore amplify
