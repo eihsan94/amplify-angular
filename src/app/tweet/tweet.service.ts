@@ -17,11 +17,9 @@ export class TweetService {
     return  res.pipe(map(d => d.data.listTweets.items));
   }
   postTweet(tweet: Tweet): Observable<any> {
-  // postTweet(tweet: Tweet): Observable<Tweet[]> {
     const res: Observable<TweetData> = from(API.graphql(graphqlOperation(createTweet, {
       input: tweet
-    })))as Observable<TweetData>;
-    // return  res.pipe(map(d => d.data.listTweets.items));
+    }))) as Observable<TweetData>;
     return  res;
   }
 }

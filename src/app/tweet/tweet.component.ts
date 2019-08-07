@@ -5,13 +5,15 @@ import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTweet, onUpdateTweet, onDeleteTweet } from 'src/graphql/subscriptions';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { createTweet } from 'src/graphql/mutations';
+import { bwFadeInOutAnimations } from '../animations/bw-fade-in-out.animations';
+
 
 
 @Component({
   selector: 'app-tweet',
   templateUrl: './tweet.component.html',
-  styleUrls: ['./tweet.component.scss']
+  styleUrls: ['./tweet.component.scss'],
+  animations: bwFadeInOutAnimations,
 })
 export class TweetComponent implements OnInit, OnDestroy {
   tweets: Tweet[];
