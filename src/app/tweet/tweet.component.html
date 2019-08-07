@@ -1,13 +1,47 @@
-<mat-card *ngFor='let tweet of tweets'>
-  {{tweet.contents}}
-</mat-card>
-<button mat-button [@fadeInOut]="{value: 'active'}">das</button>
-
-<div class="form-body">
-  <form autocomplete="off" [formGroup]="form" (ngSubmit)="submit()">
-    <div>
-      <input type="text" formControlName="contents" autocomplete="off">
-    </div>
-    <button type="submit">Submit</button>
+<div *ngIf="onFirstLoad" [@fadeInOut]="{value: fadeInOut}" class="container">
+  <div class="title-container">
+    <mat-card-title>共有のやること</mat-card-title>
+  </div>
+  <form class="form" autocomplete="off" [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" formControlName="contents" autocomplete="off" placeholder="やること">
+    </mat-form-field>
+    <button mat-fab color="basic" style="margin-left:1em" type="submit">
+      <mat-icon>save</mat-icon>
+    </button>
   </form>
+  <div class="contents">
+    <div *ngFor="let tweet of tweets; trackBy: trackElement; let i = index ">
+      <mat-card class="tweet mat-elevation-z0">
+        <mat-checkbox (change)="deleteContents(tweet)">
+          {{tweet.contents}}
+        </mat-checkbox>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="!onFirstLoad" class="container">
+  <div class="title-container">
+    <mat-card-title>共有のやること</mat-card-title>
+  </div>
+  <form class="form" autocomplete="off" [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" formControlName="contents" autocomplete="off" placeholder="やること">
+    </mat-form-field>
+    <button mat-fab color="basic" style="margin-left:1em" type="submit">
+      <mat-icon>save</mat-icon>
+    </button>
+  </form>
+  <div class="contents">
+    <div *ngFor="let tweet of tweets; trackBy: trackElement; let i = index ">
+      <mat-card [@fadeInOut]="{value: fadeInOut}" *ngIf="currentTweet === tweet" class="tweet mat-elevation-z0">
+            <mat-checkbox (change)="deleteContents(tweet)">{{tweet.contents}}</mat-checkbox>
+      </mat-card>
+      <mat-card *ngIf="currentTweet !== tweet" class="tweet mat-elevation-z0">
+            <mat-checkbox (change)="deleteContents(tweet)">{{tweet.contents}}</mat-checkbox>
+      </mat-card>
+    </div>
+  </div>
 </div>

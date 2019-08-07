@@ -21,11 +21,20 @@ export class TweetComponent implements OnInit, OnDestroy {
   tweetsSubj$ = new BehaviorSubject<Tweet[]>([]);
   tweetsObservable$: Observable<Tweet[]> = this.tweetsSubj$.asObservable();
   form: FormGroup;
+  fadeInOut = 'inactive';
+  onFirstLoad: boolean;
+  currentTweet: Tweet;
   constructor(
     private tweetService: TweetService,
     private fb: FormBuilder,
   ) {
-    this.subscription$.add(this.tweetsObservable$.subscribe(tweets => this.tweets = tweets));
+    this.subscription$.add(this.tweetsObservable$.subscribe(tweets => {
+      this.tweets = tweets;
+      this.onFirstLoad = true;
+      setTimeout(() => {
+        this.fadeInOut = 'active';
+      }, 500);
+    }));
     this.tweetChangeSubscription();
    }
 
@@ -40,15 +49,38 @@ export class TweetComponent implements OnInit, OnDestroy {
     const createSubscription: Observable<CreateTweetSubscription> = API.graphql(graphqlOperation(onCreateTweet)) as Observable<CreateTweetSubscription>;
     const updateSubscription: Observable<UpdateTweetSubscription> = API.graphql(graphqlOperation(onUpdateTweet)) as Observable<UpdateTweetSubscription>;
     const deleteSubscription: Observable<DeleteTweetSubscription> = API.graphql(graphqlOperation(onDeleteTweet)) as Observable<DeleteTweetSubscription>;
-    this.subscription$.add(createSubscription.subscribe(d => this.tweets = [d.value.data.onCreateTweet, ...this.tweets]));
+    this.subscription$.add(createSubscription.subscribe(d => {
+      this.onFirstLoad = false;
+      this.fadeInOut = 'inactive';
+      this.currentTweet = d.value.data.onCreateTweet;
+      this.tweets.unshift(this.currentTweet);
+      setTimeout(() => {
+        this.fadeInOut = 'active';
+      }, 50);
+    }));
     this.subscription$.add(updateSubscription.subscribe(d => this.tweets = this.tweets.map(t => t.id === d.value.data.onUpdateTweet.id ? d.value.data.onUpdateTweet : t)));
-    this.subscription$.add(deleteSubscription.subscribe(d => this.tweets = this.tweets.filter(t => t.id !== d.value.data.onDeleteTweet.id )));
+    this.subscription$.add(deleteSubscription.subscribe(d => {
+      this.onFirstLoad = false;
+      this.fadeInOut = 'active';
+      this.currentTweet = d.value.data.onDeleteTweet;
+      setTimeout(() => {
+        this.tweets = this.tweets.filter(t => t.id !== this.currentTweet.id );
+        this.fadeInOut = 'inactive';
+      }, 50);
+    }));
   }
    submit() {
      this.tweetService.postTweet(this.form.value);
      this.form.reset();
   }
+   deleteContents(tweet: Tweet) {
+     this.tweetService.deleteTweet(tweet);
+  }
+  trackElement(index: number, element: Tweet) {
+    return element.contents;
+  }
   ngOnDestroy() {
+    this.fadeInOut = 'inactive';
     this.subscription$.unsubscribe();
   }
 }

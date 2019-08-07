@@ -22,11 +22,11 @@ export const bwFadeInOutAnimations = [
         opacity: 0
       }),
       // animate(200)
-      animate('100ms cubic-bezier(0.4, 0.0, 0.2, 1)',
+      animate('500ms cubic-bezier(0.4, 0.0, 0.2, 1)',
         keyframes(
           [
-            style({opacity: 0, transform: 'translateY(10px)'}),
-            style({opacity: 1, transform: 'translateY(0)'}),
+            style({opacity: 0, transform: 'translateX(10px)'}),
+            style({opacity: 1, transform: 'translateX(0)'}),
           ]
         )
       )
@@ -35,11 +35,11 @@ export const bwFadeInOutAnimations = [
       style({
         opacity: 0
       }),
-      animate('100ms cubic-bezier(0.4, 0.0, 0.2, 1)',
+      animate('500ms cubic-bezier(0.4, 0.0, 0.2, 1)',
         keyframes(
           [
-            style({opacity: 1, transform: 'translateY(0)'}),
-            style({opacity: 0, transform: 'translateY(10px)'}),
+            style({opacity: 1, transform: 'translateX(0)'}),
+            style({opacity: 0, transform: 'translateX(10px)'}),
           ]
         )
       )
