@@ -1,22 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AmplifyService } from 'aws-amplify-angular';
-import { from } from 'rxjs';
+import { from, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-
+export class LoginComponent implements OnInit, OnDestroy {
+  subscription = new Subscription();
   constructor(
     public amplify: AmplifyService
   ) {
     const auth = from(amplify.auth().currentAuthenticatedUser());
-    // auth.subscribe(x => console.log(x));
+    this.subscription.add(auth.subscribe(x => console.log(x)));
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

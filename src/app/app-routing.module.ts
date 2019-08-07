@@ -6,9 +6,11 @@ import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  // { path: '', component: TweetComponent, canActivate: [AuthGuard] },
   { path: 'tweet', component: TweetComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
+  { path: '', component: TweetComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '/' },
 
 ];
 
