@@ -4,7 +4,9 @@ import { TweetService } from './tweet.service';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 import { API, graphqlOperation } from 'aws-amplify';
 import { onCreateTweet, onUpdateTweet, onDeleteTweet } from 'src/graphql/subscriptions';
-import { takeUntil, map } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { createTweet } from 'src/graphql/mutations';
+
 
 @Component({
   selector: 'app-tweet',
@@ -16,14 +18,19 @@ export class TweetComponent implements OnInit, OnDestroy {
   subscription$ = new Subscription();
   tweetsSubj$ = new BehaviorSubject<Tweet[]>([]);
   tweetsObservable$: Observable<Tweet[]> = this.tweetsSubj$.asObservable();
+  form: FormGroup;
   constructor(
     private tweetService: TweetService,
+    private fb: FormBuilder,
   ) {
     this.subscription$.add(this.tweetsObservable$.subscribe(tweets => this.tweets = tweets));
     this.tweetChangeSubscription();
    }
 
   ngOnInit() {
+    this.form = this.fb.group({
+      contents: [''],
+    });
     this.subscription$.add(this.tweetService.getTweets().subscribe(d => this.tweetsSubj$.next(d)));
   }
 
@@ -34,6 +41,10 @@ export class TweetComponent implements OnInit, OnDestroy {
     this.subscription$.add(createSubscription.subscribe(d => this.tweets = [d.value.data.onCreateTweet, ...this.tweets]));
     this.subscription$.add(updateSubscription.subscribe(d => this.tweets = this.tweets.map(t => t.id === d.value.data.onUpdateTweet.id ? d.value.data.onUpdateTweet : t)));
     this.subscription$.add(deleteSubscription.subscribe(d => this.tweets = this.tweets.filter(t => t.id !== d.value.data.onDeleteTweet.id )));
+  }
+   submit() {
+     this.tweetService.postTweet(this.form.value);
+     this.form.reset();
   }
   ngOnDestroy() {
     this.subscription$.unsubscribe();

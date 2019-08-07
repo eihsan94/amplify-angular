@@ -3,3 +3,11 @@
 </div>
 
 
+<div class="form-body">
+    <form autocomplete="off" [formGroup]="form" (ngSubmit)="submit()">
+      <div>
+        <input type="text" formControlName="contents" autocomplete="off">
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
